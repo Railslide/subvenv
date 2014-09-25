@@ -5,7 +5,7 @@ Subvenv is a plugin for Dough Hellman's Virtualenvwrapper that extends the `mkpr
 
 Here is how the Subven sublime-project settings file looks like:
 
-    ::json
+    ```json
     {
         "folders":
         [
@@ -19,6 +19,7 @@ Here is how the Subven sublime-project settings file looks like:
             "python_interpreter": "/path/to/virtualenv/bin/python",
         },
     }
+    ```
 
 License
 -------
