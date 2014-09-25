@@ -7,15 +7,15 @@ log = logging.getLogger(__name__)
 
 
 def post_mkproject(args):
-    project_name = args
+    project_name = os.getenv('PWD')
     project_venv = os.path.join(os.getenv('WORKON_HOME'), project_name)
     project_path_file = os.path.join(project_venv, '.project')
     project_interpreter = os.path.join(project_venv, 'bin/python')
 
-    with open(project_path_file, 'r') as pf:
-        project_folder = pf.readline()
+    with open(project_path_file, 'r') as f:
+        project_folder = f.readline()
 
-    sublime_project_file = "{}.sublime-project".format(project_name)
+    sublime_file_name = "{}.sublime-project".format(project_name)
     settings_text = {
         "folders": {
             "path": project_folder,
@@ -24,11 +24,9 @@ def post_mkproject(args):
             "python_interpreter": project_interpreter,
         },
     }
-    json.dumps(settings_text, indent=4)
+    sublime_file_path = (os.path.join(project_folder, sublime_file_name))
 
-    print(project_name)
-    print(project_interpreter, project_folder, sublime_project_file)
+    with open(sublime_file_path, 'a') as f:
+        f.write(json.dumps(settings_text, indent=4))
 
-
-if __name__ == '__main__':
-    post_mkproject('fyndiq')
+    return
