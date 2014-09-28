@@ -17,18 +17,23 @@ def post_mkproject(args):
 
     sublime_file_name = "{}.sublime-project".format(project_name)
     settings_text = {
-        "folders": {
-            "follow_symlinks": True,
-            "path": project_folder,
-        },
-        "settings": {
+
+        "folders":
+        [
+            {
+                "follow_symlinks": True,
+                "path": project_folder,
+            },
+        ],
+        "settings":
+        {
             "python_interpreter": project_interpreter,
         },
     }
     target_path = (os.path.join(project_folder, sublime_file_name))
 
-    with open(target_path, 'a') as f:
-        f.write(json.dumps(settings_text, indent=4))
+    with open(target_path, 'w') as f:
+        f.write(json.dumps(settings_text, sort_keys=True, indent=4))
 
     return
 
