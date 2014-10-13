@@ -4,7 +4,7 @@ Subvenv (WIP)
 Subvenv is a [Virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) plugin that automatically generates Sublime Text 2/3 project files.
 
 * It saves you the time to manually create a project files
-* It makes linting plugins like Anaconda and SublimePythonIDE working out of the box, without the need of further settings.
+* It makes linting plugins like [Anaconda](https://github.com/DamnWidget/anaconda) and [SublimePythonIDE](https://github.com/JulianEberius/SublimePythonIDE) working out of the box, without the need of further settings.
 
 Requirements
 ------------
@@ -20,8 +20,6 @@ For enabling Virtualenvwrapper, make sure the following line is present in your 
 Installation
 ------------
 
-**IMPORTANT**: Subvenv is currently work in progress, so this instructions refers to the dev version.
-
 Clone the repo
 
     git clone https://github.com/Railslide/subvenv.git
@@ -36,7 +34,7 @@ Usage
 
 Create a new virtualenv with `mkproject <project_name>`. From Sublime Text open the project `<project_name>.sublime-project` located in your `/your/project/home/<project_name>/` and you are ready to go.
 
-What's in the file
+What's in the generated file
 ------------------
 
 Here is how the Subvenv sublime-project settings file looks like:
@@ -53,6 +51,14 @@ Here is how the Subvenv sublime-project settings file looks like:
         }
     }
 
+Contribution guidelines
+-----------------------
+
+Check open issues first, if nobody has reported your problem yet open a new one.
+
+You know how to fix a bug? Awesome! Fork the repository, make your changes in a new branch, and send a pull request.
+
+Do you have a killer idea for improving Subenv? I'd love to hear about it! Just create a new issue, so we can discuss about it.
 
 License
 -------
