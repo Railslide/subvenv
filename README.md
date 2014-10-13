@@ -1,5 +1,5 @@
-Subvenv (WIP)
-=============
+Subvenv
+=======
 
 Subvenv is a [Virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) plugin that automatically generates Sublime Text 2/3 project files.
 
