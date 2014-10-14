@@ -11,7 +11,7 @@ Requirements
 
 Projects must be enabled in Virtualenvwrapper in order to use Subvenv.
 
-For enabling Virtualenvwrapper, make sure the following line is present in your shell startup file (`.bashrc`, `.profile`, etc.):
+For enabling Virtualenvwrapper projects, make sure the following line is present in your shell startup file (`.bashrc`, `.profile`, etc.):
 
     export PROJECT_HOME=/path/to/your/projects/folder/
 
