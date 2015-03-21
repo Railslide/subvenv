@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+import sys
 
 
 log = logging.getLogger(__name__)
@@ -14,8 +15,12 @@ def post_mkproject(args=None):
     project_path_file = os.path.join(project_venv, '.project')
     project_interpreter = os.path.join(project_venv, 'bin/python')
 
-    with open(project_path_file, 'r') as f:
-        project_folder = f.readline().rstrip('\r\n')
+    try:
+        with open(project_path_file, 'r') as f:
+            project_folder = f.readline().rstrip('\r\n')
+    except IOError:
+        sys.stderr.write('Virtualenv project not found.\n')
+        return
 
     create_sublime_project(project_folder, project_name, project_interpreter)
 
