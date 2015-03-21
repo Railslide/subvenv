@@ -9,14 +9,18 @@ log = logging.getLogger(__name__)
 
 
 def post_mkproject(args=None):
-    project_name = os.path.basename(os.getenv('VIRTUAL_ENV'))
-    project_venv = os.path.join(os.getenv('WORKON_HOME'), project_name)
+    project_venv = os.getenv('VIRTUAL_ENV')
+    project_name = os.path.basename(project_venv)
     project_path_file = os.path.join(project_venv, '.project')
     project_interpreter = os.path.join(project_venv, 'bin/python')
 
     with open(project_path_file, 'r') as f:
         project_folder = f.readline().rstrip('\r\n')
 
+    create_sublime_project(project_folder, project_name, project_interpreter)
+
+
+def create_sublime_project(project_folder, project_name, interpreter, *args):
     sublime_file_name = "{}.sublime-project".format(project_name)
     settings_text = {
         "folders": [
@@ -26,7 +30,7 @@ def post_mkproject(args=None):
             },
         ],
         "settings": {
-            "python_interpreter": project_interpreter,
+            "python_interpreter": interpreter,
         },
     }
     target_path = (os.path.join(project_folder, sublime_file_name))
