@@ -14,7 +14,10 @@ setup(name='subvenv',
       entry_points={
           'virtualenvwrapper.project.post_mkproject': [
               'subvenv = virtualenvwrapper.subvenv:post_mkproject',
-          ]
+          ],
+          'console_scripts': [
+            'subvenv = virtualenvwrapper.subvenv:post_mkproject'
+          ],
       },
 
       zip_safe=False)

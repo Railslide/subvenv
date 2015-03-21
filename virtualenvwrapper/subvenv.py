@@ -8,7 +8,7 @@ import os
 log = logging.getLogger(__name__)
 
 
-def post_mkproject(args):
+def post_mkproject(args=None):
     project_name = os.path.basename(os.getenv('VIRTUAL_ENV'))
     project_venv = os.path.join(os.getenv('WORKON_HOME'), project_name)
     project_path_file = os.path.join(project_venv, '.project')
