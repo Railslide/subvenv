@@ -32,9 +32,7 @@ def make_project(path):
     venv_path = os.getenv('VIRTUAL_ENV')
 
     if not venv_path:
-        sys.stderr.write(
-            'You need to be inside a virtualenv for using subvenv.')
-        sys.exit(2)
+        sys.exit('You need to be inside a virtualenv for using subvenv.')
 
     project_name = os.path.basename(venv_path)
     interpreter = sys.executable
@@ -57,8 +55,12 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
     }
     target_path = (os.path.join(project_folder, sublime_file_name))
 
-    # @todo: wrap it in a try-except block in case target_path doesn't exist
-    with open(target_path, 'w') as f:
-        f.write(json.dumps(settings_text, sort_keys=True, indent=4))
-
+    try:
+        with open(target_path, 'w') as f:
+            f.write(json.dumps(settings_text, sort_keys=True, indent=4))
+    except IOError:
+        sys.exit(
+            'Cannot create file.\n\
+             Attempted path: {}'.format(project_folder)
+        )
     return
