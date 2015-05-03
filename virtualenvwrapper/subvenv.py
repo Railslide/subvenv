@@ -19,8 +19,7 @@ def post_mkproject(args=None):
         with open(project_path_file, 'r') as f:
             project_folder = f.readline().rstrip('\r\n')
     except IOError:
-        sys.stderr.write('Virtualenv project not found.\n')
-        return
+        sys.exit('Virtualenv project not found.\n')
 
     create_sublime_project_file(project_folder, project_name, interpreter)
 
@@ -63,4 +62,3 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
             'Cannot create file.\n\
              Attempted path: {}'.format(project_folder)
         )
-    return
