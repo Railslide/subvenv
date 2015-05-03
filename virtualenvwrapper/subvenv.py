@@ -25,8 +25,8 @@ def post_mkproject(args=None):
     create_sublime_project_file(project_folder, project_name, interpreter)
 
 
-def make_project(path):
-    if not path:
+def make_project(target_folder=None):
+    if not target_folder:
         target_folder = os.getcwd()
 
     venv_path = os.getenv('VIRTUAL_ENV')
