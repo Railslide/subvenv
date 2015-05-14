@@ -10,6 +10,10 @@ log = logging.getLogger(__name__)
 
 
 def post_mkproject(args=None):
+    """
+    Create a Sublime text project file on
+    virtualenvwrapper project creation.
+    """
     project_venv = os.getenv('VIRTUAL_ENV')
     project_name = os.path.basename(project_venv)
     project_path_file = os.path.join(project_venv, '.project')
@@ -24,22 +28,17 @@ def post_mkproject(args=None):
     create_sublime_project_file(project_folder, project_name, interpreter)
 
 
-def make_project(target_folder=None):
-    if not target_folder:
-        target_folder = os.getcwd()
-
-    venv_path = os.getenv('VIRTUAL_ENV')
-
-    if not venv_path:
-        sys.exit('You need to be inside a virtualenv for using subvenv.')
-
-    project_name = os.path.basename(venv_path)
-    interpreter = sys.executable
-
-    create_sublime_project_file(target_folder, project_name, interpreter)
-
-
 def create_sublime_project_file(project_folder, project_name, interpreter):
+    """
+    Create a Sublime Text project file in the given project folder.
+
+    Args:
+        project_folder (str): path to project folder
+        project_name (str): name of the project
+        interpreter (str): path to the Python interpreter used for the
+                           project
+
+    """
     sublime_file_name = "{}.sublime-project".format(project_name)
     settings_text = {
         "folders": [
@@ -62,3 +61,25 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
             'Cannot create file.\n\
              Attempted path: {}'.format(project_folder)
         )
+
+
+def make_project(target_folder=None):
+    """
+    Create a Sublime project file based on the current virtual environment.
+
+    If no target folder is specified, the file will be created in
+    the current working directory.
+
+    """
+    if not target_folder:
+        target_folder = os.getcwd()
+
+    venv_path = os.getenv('VIRTUAL_ENV')
+
+    if not venv_path:
+        sys.exit('You need to be inside a virtualenv for using subvenv.')
+
+    project_name = os.path.basename(venv_path)
+    interpreter = sys.executable
+
+    create_sublime_project_file(target_folder, project_name, interpreter)
