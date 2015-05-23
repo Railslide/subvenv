@@ -1,4 +1,5 @@
 import os
+import sys
 import unittest
 
 from unittest.mock import patch
@@ -32,6 +33,20 @@ class SubvenvTests(unittest.TestCase):
                 'test_name',
                 'test_interpreter'
             )
+
+    @patch.object(subvenv, 'create_sublime_project_file')
+    @patch.object(os, 'getenv', return_value="test_env")
+    def test_make_project(self, os_mock, create_sublime_mock):
+        """
+        When executing succesfully make_mkproject should
+        call create_sublime_project_file.
+        """
+        subvenv.make_project('test_folder')
+        create_sublime_mock.assert_called_with(
+            'test_folder',
+            'test_env',
+            sys.executable
+        )
 
     @patch.object(os, 'getenv', return_value='')
     def test_make_project_without_virtualenv(self, os_mock):
