@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(name='subvenv',
       version='0.1',
       description=('A Virtualenvwrapper plugin that automatically '
-                   'generates Sublime Text 2/3 project files'),
+                   'generates Sublime Text 3 project files'),
       url='http://github.com/Railslide/subvenv',
       author='Giulia Vergottini',
       author_email='hello@railslide.io',
@@ -16,7 +16,7 @@ setup(name='subvenv',
               'subvenv = virtualenvwrapper.subvenv:post_mkproject',
           ],
           'console_scripts': [
-            'subvenv = virtualenvwrapper.subvenv:post_mkproject'
+            'subvenv = virtualenvwrapper.subvenv:make_mkproject'
           ],
       },
 

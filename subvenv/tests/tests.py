@@ -2,16 +2,31 @@ import os
 import sys
 import unittest
 
-from unittest.mock import patch
+from unittest.mock import patch, mock_open
 
 from subvenv import subvenv
 
 
 class SubvenvTests(unittest.TestCase):
 
-    # @patch.object(os, 'getenv', return_value='test_env')
-    # def test_postmkproject(self):
-    #     pass
+    @patch.object(subvenv, 'create_sublime_project_file')
+    @patch.object(os, 'getenv', return_value='test_env')
+    def test_postmkproject_read_the_file(self, os_mock, create_sublime_mock):
+        """
+        Calling post_mkproject should result in the file located
+        at env_name/.project to be read and its content passed to
+        create_sublime_project_file.
+        """
+        m = mock_open(read_data='test_name')
+        with patch('builtins.open', m, create=True) as m:
+            subvenv.post_mkproject()
+
+        m.assert_called_with('test_env/.project', 'r')
+        create_sublime_mock.assert_called_with(
+            'test_name',
+            'test_env',
+            'test_env/bin/python'
+        )
 
     @patch.object(os, 'getenv', return_value='')
     def test_postmkproject_without_virtualenv(self, os_mock):
@@ -56,3 +71,6 @@ class SubvenvTests(unittest.TestCase):
         """
         with self.assertRaises(SystemExit):
             subvenv.make_project()
+
+    def test_(self):
+        pass
