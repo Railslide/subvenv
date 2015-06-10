@@ -6,6 +6,12 @@ Subvenv makes the creation of virtualenv-friendly Sublime Text 2/3 project files
 
 Create your virtualenv, run subvenv, and you're ready to code.
 
+
+TOC
+---
+* [Installation](#installation)
+* [License](#license)
+
 Installation
 ------------
 
@@ -25,10 +31,11 @@ Subvenv supports Virtualenv, Virtualenwrapper, and pyvenv.
 
 Any other virtualenv manager making use of the `VIRTUALENV` environment variable should probably work too.
 
+
 Virtualenvwrapper projects integration
 --------------------------------------
 
-
+Using Virtualenvwrapper projects removes the need of manually running Subvenv. Project creation will activate Subvenv behind the scenes and a Sublime project file will be automagically created inside the project folder.
 
 
 License
