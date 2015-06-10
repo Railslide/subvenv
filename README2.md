@@ -7,10 +7,14 @@ Subvenv makes the creation of virtualenv-friendly Sublime Text 2/3 project files
 Create your virtualenv, run subvenv, and you're ready to code.
 
 
-TOC
----
+Table of contents
+-----------------
+
 * [Installation](#installation)
+* [Supported virtualenv managers](#supported-virtualenv-managers)
+* [Virtualenvwrapper projects integration](#virtualenvwrapper-projects-integration)
 * [License](#license)
+
 
 Installation
 ------------
