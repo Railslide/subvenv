@@ -92,4 +92,3 @@ class SubvenvTests(unittest.TestCase):
         """
         with self.assertRaises(SystemExit):
             subvenv.make_project()
-
