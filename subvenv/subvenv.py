@@ -83,3 +83,7 @@ def make_project(target_folder=None):
     interpreter = sys.executable
 
     create_sublime_project_file(target_folder, project_name, interpreter)
+
+
+if __name__ == '__main__':
+    make_project()
