@@ -16,7 +16,7 @@ setup(name='subvenv',
               'subvenv = virtualenvwrapper.subvenv:post_mkproject',
           ],
           'console_scripts': [
-            'subvenv = virtualenvwrapper.subvenv:make_mkproject'
+            'subvenv = virtualenvwrapper.subvenv:make_project'
           ],
       },
 

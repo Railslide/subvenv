@@ -72,7 +72,7 @@ class SubvenvTests(unittest.TestCase):
     @patch.object(os, 'getenv', return_value="test_env")
     def test_make_project(self, os_mock, create_sublime_mock):
         """
-        When executing succesfully make_mkproject should
+        When executing succesfully make_project should
         call create_sublime_project_file.
 
         """
@@ -86,7 +86,7 @@ class SubvenvTests(unittest.TestCase):
     @patch.object(os, 'getenv', return_value='')
     def test_make_project_without_virtualenv(self, os_mock):
         """
-        Running make_mkproject without being in a virtualenv
+        Running make_project without being in a virtualenv
         should exit the program.
 
         """
