@@ -1,13 +1,18 @@
 import os
 import sys
 import unittest
-
 from unittest.mock import patch, mock_open
+
+from click.testing import CliRunner
 
 from subvenv import subvenv
 
 
 class SubvenvTests(unittest.TestCase):
+
+    def shortDescription(self):
+        """ Make nose display test names instead of docstring. """
+        return None
 
     @patch.object(subvenv, 'create_sublime_project_file')
     @patch.object(os, 'getenv', return_value='test_env')
@@ -76,7 +81,8 @@ class SubvenvTests(unittest.TestCase):
         call create_sublime_project_file.
 
         """
-        subvenv.make_project('test_folder')
+        runner = CliRunner()
+        runner.invoke(subvenv.make_project, ['--folder', 'test_folder'])
         create_sublime_mock.assert_called_with(
             'test_folder',
             'test_env',
@@ -90,5 +96,9 @@ class SubvenvTests(unittest.TestCase):
         should exit the program.
 
         """
-        with self.assertRaises(SystemExit):
-            subvenv.make_project()
+        runner = CliRunner()
+        result = runner.invoke(subvenv.make_project)
+        expected_msg = 'You need to be inside a virtualenv for using subvenv.'
+
+        self.assertTrue(isinstance(result.exception, SystemExit))
+        self.assertEqual(result.exception.args[0], expected_msg)

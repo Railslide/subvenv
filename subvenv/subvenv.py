@@ -5,14 +5,16 @@ import logging
 import os
 import sys
 
+import click
+
 
 log = logging.getLogger(__name__)
 
 
 def post_mkproject(args=None):
     """
-    Create a Sublime text project file on
-    virtualenvwrapper project creation.
+    Create a Sublime text project file on virtualenvwrapper project
+    creation.
     """
     project_venv = os.getenv('VIRTUAL_ENV')
     project_name = os.path.basename(project_venv)
@@ -35,8 +37,8 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
     Args:
         project_folder (str): path to project folder
         project_name (str): name of the project
-        interpreter (str): path to the Python interpreter used for the
-                           project
+        interpreter (str): path to the Python interpreter used for
+                           the project
 
     """
     sublime_file_name = "{}.sublime-project".format(project_name)
@@ -63,16 +65,22 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
         )
 
 
-def make_project(target_folder=None):
+@click.command()
+@click.option(
+    '--folder',
+    type=click.Path(),
+    help='Target folder for file creation.'
+)
+def make_project(folder=None):
     """
-    Create a Sublime project file based on the current virtual environment.
+    Create a Sublime project file for the current virtual environment.
 
     If no target folder is specified, the file will be created in
     the current working directory.
 
     """
-    if not target_folder:
-        target_folder = os.getcwd()
+    if not folder:
+        folder = os.getcwd()
 
     venv_path = os.getenv('VIRTUAL_ENV')
 
@@ -82,8 +90,13 @@ def make_project(target_folder=None):
     project_name = os.path.basename(venv_path)
     interpreter = sys.executable
 
-    create_sublime_project_file(target_folder, project_name, interpreter)
+    create_sublime_project_file(folder, project_name, interpreter)
 
+
+@click.group()
+def main():
+    pass
 
 if __name__ == '__main__':
-    make_project()
+    main.add_command(make_project)
+    main()

@@ -2,11 +2,11 @@ Subvenv
 =======
 
 Subvenv makes the creation of virtualenv-friendly Sublime Text 2/3 project files as easy as
-`subvenv --make-project`(or even skipping it by integrating it with Virtualenwrapper!).
+`subvenv make_project`(or even skipping it by integrating it with Virtualenwrapper!).
 
 Create your virtualenv, run subvenv, and you're ready to code.
 
-**Bonus point**: besides saving you the time of manually creating a project files, it also makes linting plugins like [Anaconda](https://github.com/DamnWidget/anaconda) and [SublimePythonIDE](https://github.com/JulianEberius/SublimePythonIDE) working out of the box!
+Bonus point: besides saving you the time of manually creating a project files, it also makes linting plugins like [Anaconda](https://github.com/DamnWidget/anaconda) and [SublimePythonIDE](https://github.com/JulianEberius/SublimePythonIDE) work out of the box!
 
 Table of contents
 -----------------
