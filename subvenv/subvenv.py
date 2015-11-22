@@ -65,7 +65,19 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
         )
 
 
-@click.command()
+@click.group()
+def cli():
+    """
+    Subvenv is a tool for creating virtualenv-friendly Sublime Text
+    project files.
+    It can be used  as a standalone or as a plugin for Virtualenwrapper.
+
+    See https://github.com/Railslide/subvenv for more information.
+    """
+    pass
+
+
+@cli.command()
 @click.option(
     '--folder',
     type=click.Path(),
@@ -93,10 +105,5 @@ def make_project(folder=None):
     create_sublime_project_file(folder, project_name, interpreter)
 
 
-@click.group()
-def main():
-    pass
-
 if __name__ == '__main__':
-    main.add_command(make_project)
-    main()
+    cli()
