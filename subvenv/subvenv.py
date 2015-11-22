@@ -11,6 +11,9 @@ import click
 log = logging.getLogger(__name__)
 
 
+HELP_COMMANDS = dict(help_option_names=['-h', '--help'])
+
+
 def post_mkproject(args=None):
     """
     Create a Sublime text project file on virtualenvwrapper project
@@ -65,7 +68,7 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
         )
 
 
-@click.group()
+@click.group(context_settings=HELP_COMMANDS)
 def cli():
     """
     Subvenv is a tool for creating virtualenv-friendly Sublime Text
