@@ -1,0 +1,32 @@
+---
+- name: Update apt
+  sudo: yes
+  apt: update_cache=yes
+
+- name: Install pip
+  sudo: yes
+  apt: pkg=python-pip
+
+- name: Install virtualenvwrapper
+  sudo: yes
+  pip: name=virtualenvwrapper
+
+- name: Create virtualenvs folder
+  sudo: yes
+  file: path={{ virtualenvwrapper.vagrant_home }}/.virtualenvs state=directory owner=vagrant
+
+- name: Create projects folder
+  sudo: yes
+  file: path={{ virtualenvwrapper.vagrant_home }}/projects state=directory owner=vagrant
+
+- name: Edit bash file
+  sudo: yes
+  lineinfile: dest={{ virtualenvwrapper.vagrant_home }}/.bashrc line="{{ item }}"
+  with_items:
+    - "export WORKON_HOME={{ virtualenvwrapper.vagrant_home }}/.virtualenvs"
+    - "export PROJECT_HOME={{ virtualenvwrapper.vagrant_home }}/projects"
+    - "source /usr/local/bin/virtualenvwrapper.sh"
+
+- name: Reload bash
+  sudo: yes
+  shell: . {{ virtualenvwrapper.vagrant_home}}/.bashrc

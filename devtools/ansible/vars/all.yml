@@ -1,0 +1,6 @@
+---
+virtualenvwrapper:
+    vagrant_home: /home/vagrant
+
+subvenv:
+    project_folder: /vagrant/subvenv

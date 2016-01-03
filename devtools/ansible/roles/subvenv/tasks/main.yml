@@ -1,0 +1,4 @@
+---
+- name: Install subvenv
+  sudo: yes
+  command: python {{ subvenv.project_folder }}/setup.py install
