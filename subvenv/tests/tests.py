@@ -5,7 +5,7 @@ from unittest.mock import patch, mock_open
 
 from click.testing import CliRunner
 
-from subvenv import subvenv
+from subvenv import core
 
 
 class SubvenvTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class SubvenvTests(unittest.TestCase):
         """ Make nose display test names instead of docstring. """
         return None
 
-    @patch.object(subvenv, 'create_sublime_project_file')
+    @patch.object(core, 'create_sublime_project_file')
     @patch.object(os, 'getenv', return_value='test_env')
     def test_postmkproject_read_the_file(self, os_mock, create_sublime_mock):
         """
@@ -25,7 +25,7 @@ class SubvenvTests(unittest.TestCase):
         """
         m = mock_open(read_data='test_name')
         with patch('builtins.open', m, create=True) as m:
-            subvenv.post_mkproject()
+            core.post_mkproject()
 
         m.assert_called_with('test_env/.project', 'r')
         create_sublime_mock.assert_called_with(
@@ -42,7 +42,7 @@ class SubvenvTests(unittest.TestCase):
 
         """
         with self.assertRaises(SystemExit):
-            subvenv.post_mkproject()
+            core.post_mkproject()
 
     def test_create_sublime_project_file(self):
         """
@@ -52,7 +52,7 @@ class SubvenvTests(unittest.TestCase):
         """
         m = mock_open()
         with patch('builtins.open', m, create=True) as m:
-            subvenv.create_sublime_project_file(
+            core.create_sublime_project_file(
                 'test_folder',
                 'test_name',
                 'test_interpreter'
@@ -67,13 +67,13 @@ class SubvenvTests(unittest.TestCase):
 
         """
         with self.assertRaises(SystemExit):
-            subvenv.create_sublime_project_file(
+            core.create_sublime_project_file(
                 'nonexistingfolder',
                 'test_name',
                 'test_interpreter'
             )
 
-    @patch.object(subvenv, 'create_sublime_project_file')
+    @patch.object(core, 'create_sublime_project_file')
     @patch.object(os, 'getenv', return_value="test_env")
     def test_make_project(self, os_mock, create_sublime_mock):
         """
@@ -82,7 +82,7 @@ class SubvenvTests(unittest.TestCase):
 
         """
         runner = CliRunner()
-        runner.invoke(subvenv.make_project, ['--folder', 'test_folder'])
+        runner.invoke(core.make_project, ['--folder', 'test_folder'])
         create_sublime_mock.assert_called_with(
             'test_folder',
             'test_env',
@@ -97,7 +97,7 @@ class SubvenvTests(unittest.TestCase):
 
         """
         runner = CliRunner()
-        result = runner.invoke(subvenv.make_project)
+        result = runner.invoke(core.make_project)
         expected_msg = 'You need to be inside a virtualenv for using subvenv.'
 
         self.assertTrue(isinstance(result.exception, SystemExit))
