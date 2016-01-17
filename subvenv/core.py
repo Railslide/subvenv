@@ -14,6 +14,14 @@ log = logging.getLogger(__name__)
 HELP_COMMANDS = dict(help_option_names=['-h', '--help'])
 
 
+def build_interpreter_path(base_path):
+    """
+    Build interpreter path from a base path following
+    the format `base_path`/bin/python
+    """
+    return os.path.join(base_path, 'bin', 'python')
+
+
 def post_mkproject(args=None):
     """
     Create a Sublime text project file on virtualenvwrapper project
@@ -22,7 +30,7 @@ def post_mkproject(args=None):
     project_venv = os.getenv('VIRTUAL_ENV')
     project_name = os.path.basename(project_venv)
     project_path_file = os.path.join(project_venv, '.project')
-    interpreter = os.path.join(project_venv, 'bin/python')
+    interpreter = build_interpreter_path(project_venv)
 
     try:
         with open(project_path_file, 'r') as f:
@@ -103,7 +111,7 @@ def make_project(folder=None):
         sys.exit('You need to be inside a virtualenv for using subvenv.')
 
     project_name = os.path.basename(venv_path)
-    interpreter = sys.executable
+    interpreter = build_interpreter_path(venv_path)
 
     create_sublime_project_file(folder, project_name, interpreter)
 

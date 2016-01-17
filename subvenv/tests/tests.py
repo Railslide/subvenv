@@ -11,7 +11,7 @@ from subvenv import core
 class SubvenvTests(unittest.TestCase):
 
     def shortDescription(self):
-        """ Make nose display test names instead of docstring. """
+        """ Make nose display test names instead of docstrings. """
         return None
 
     @patch.object(core, 'create_sublime_project_file')
