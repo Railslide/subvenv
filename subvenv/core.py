@@ -7,6 +7,8 @@ import sys
 
 import click
 
+from collections import namedtuple
+
 
 log = logging.getLogger(__name__)
 
@@ -14,12 +16,23 @@ log = logging.getLogger(__name__)
 HELP_COMMANDS = dict(help_option_names=['-h', '--help'])
 
 
-def build_interpreter_path(base_path):
-    """
-    Build interpreter path from a base path following
-    the format `base_path`/bin/python
-    """
-    return os.path.join(base_path, 'bin', 'python')
+class VirtualenvError(Exception):
+    pass
+
+
+def get_virtualenv():
+    path = os.getenv('VIRTUAL_ENV')
+
+    if not path:
+        raise VirtualenvError(
+            'Trying to get virtualenv data while not in a virtualenv'
+        )
+
+    name = os.path.basename(path)
+    interpreter = os.path.join(path, 'bin', 'python')
+
+    Virtualenv = namedtuple('Virtualenv', ['name', 'path', 'interpreter'])
+    return Virtualenv(name, path, interpreter)
 
 
 def post_mkproject(args=None):
@@ -27,10 +40,12 @@ def post_mkproject(args=None):
     Create a Sublime text project file on virtualenvwrapper project
     creation.
     """
-    project_venv = os.getenv('VIRTUAL_ENV')
-    project_name = os.path.basename(project_venv)
-    project_path_file = os.path.join(project_venv, '.project')
-    interpreter = build_interpreter_path(project_venv)
+    try:
+        venv = get_virtualenv()
+    except VirtualenvError:
+        sys.exit('You need to be inside a virtualenv for using subvenv.')
+
+    project_path_file = os.path.join(venv.path, '.project')
 
     try:
         with open(project_path_file, 'r') as f:
@@ -38,7 +53,7 @@ def post_mkproject(args=None):
     except IOError:
         sys.exit('Virtualenv project not found.\n')
 
-    create_sublime_project_file(project_folder, project_name, interpreter)
+    create_sublime_project_file(project_folder, venv.name, venv.interpreter)
 
 
 def create_sublime_project_file(project_folder, project_name, interpreter):
@@ -105,15 +120,12 @@ def make_project(folder=None):
     if not folder:
         folder = os.getcwd()
 
-    venv_path = os.getenv('VIRTUAL_ENV')
-
-    if not venv_path:
+    try:
+        venv = get_virtualenv()
+    except VirtualenvError:
         sys.exit('You need to be inside a virtualenv for using subvenv.')
 
-    project_name = os.path.basename(venv_path)
-    interpreter = build_interpreter_path(venv_path)
-
-    create_sublime_project_file(folder, project_name, interpreter)
+    create_sublime_project_file(folder, venv.name, venv.interpreter)
 
 
 if __name__ == '__main__':

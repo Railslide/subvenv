@@ -1,5 +1,4 @@
 import os
-import sys
 import unittest
 from unittest.mock import patch, mock_open
 
@@ -86,7 +85,7 @@ class SubvenvTests(unittest.TestCase):
         create_sublime_mock.assert_called_with(
             'test_folder',
             'test_env',
-            sys.executable
+            'test_env/bin/python'
         )
 
     @patch.object(os, 'getenv', return_value='')
@@ -102,3 +101,20 @@ class SubvenvTests(unittest.TestCase):
 
         self.assertTrue(isinstance(result.exception, SystemExit))
         self.assertEqual(result.exception.args[0], expected_msg)
+
+    @patch.object(os, 'getenv', return_value='')
+    def test_get_virtualenv_without_virtualenv(self, os_mock):
+        """
+        Calling get_virtualenv without being in a virtualenv
+        should raise an exception
+        """
+        with self.assertRaises(core.VirtualenvError):
+            core.get_virtualenv()
+
+    @patch.object(os, 'getenv', return_value='test/test_env')
+    def test_get_virtualenv(self, os_mock):
+        venv = core.get_virtualenv()
+
+        self.assertEqual(venv.path, 'test/test_env')
+        self.assertEqual(venv.interpreter, 'test/test_env/bin/python')
+        self.assertEqual(venv.name, 'test_env')
