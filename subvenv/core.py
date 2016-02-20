@@ -120,6 +120,8 @@ def make_project(folder=None):
     if not folder:
         folder = os.getcwd()
 
+    folder = os.path.abspath(folder)
+
     try:
         venv = get_virtualenv()
     except VirtualenvError:

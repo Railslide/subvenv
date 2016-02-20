@@ -74,7 +74,8 @@ class SubvenvTests(unittest.TestCase):
 
     @patch.object(core, 'create_sublime_project_file')
     @patch.object(os, 'getenv', return_value="test_env")
-    def test_make_project(self, os_mock, create_sublime_mock):
+    @patch.object(os, 'getcwd', return_value="")
+    def test_make_project(self, getcwd_mock, getenv_mock, create_sublime_mock):
         """
         When executing succesfully make_project should
         call create_sublime_project_file.
