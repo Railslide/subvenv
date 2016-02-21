@@ -2,7 +2,7 @@ Subvenv
 =======
 
 Subvenv makes the creation of virtualenv-friendly Sublime Text 2/3 project files as easy as
-`subvenv make_project`(or even skipping it by integrating it with Virtualenwrapper!).
+`subvenv make_project` (or even skipping it by integrating it with Virtualenwrapper!).
 
 Create your virtualenv, run subvenv, and you're ready to code.
 
@@ -22,13 +22,9 @@ Table of contents
 Installation
 ------------
 
-Clone the repo
+You can install the latest stable release via pip:
 
-    git clone https://github.com/Railslide/subvenv.git
-
-and from the `subvenv` folder give
-
-    python setup.py install
+    $ pip install subvenv
 
 
 Virtualenvwrapper projects integration
@@ -38,7 +34,7 @@ Using [Virtualenvwrapper projects](http://virtualenvwrapper.readthedocs.org/en/l
 
 Simply create a new virtualenv with
 
-    mkproject <project_name>
+     $ mkproject <project_name>
 
 and a `<project_name>.sublime-project` file will be placed in your `/your/project/home/<project_name>/`. Open it with Sublime Text and you are ready to go.
 
@@ -48,7 +44,7 @@ Usage as a standalone
 
 If you don't want to pass through a Virtualenwrapper project:
 
-    subvenv make-project [target_folder]  # default is current folder
+    $ subvenv make-project [target_folder]  # default is current folder
 
 will create a `<virtualenv_name>.sublime-project` file in your target folder.
 
