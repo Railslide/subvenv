@@ -2,6 +2,9 @@
 
 from setuptools import setup, find_packages
 
+# Make PyPI play nice with markdown
+# See xiongchiamiov's comment:
+# https://coderwall.com/p/qawuyq/use-markdown-readme-s-in-python-modules
 try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')
