@@ -1,21 +1,23 @@
 Subvenv
 =======
 
-Subvenv is a [Virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) plugin that automatically generates Sublime Text 2/3 project files.
+Subvenv makes the creation of virtualenv-friendly Sublime Text 2/3 project files as easy as
+`subvenv make_project`(or even skipping it by integrating it with Virtualenwrapper!).
 
-* It saves you the time to manually create a project files
-* It makes linting plugins like [Anaconda](https://github.com/DamnWidget/anaconda) and [SublimePythonIDE](https://github.com/JulianEberius/SublimePythonIDE) working out of the box, without the need of further settings.
+Create your virtualenv, run subvenv, and you're ready to code.
 
-Requirements
-------------
+Bonus point: besides saving you the time of manually creating a project files, it also makes linting plugins like [Anaconda](https://github.com/DamnWidget/anaconda) and [SublimePythonIDE](https://github.com/JulianEberius/SublimePythonIDE) work out of the box!
 
-Projects must be enabled in Virtualenvwrapper in order to use Subvenv.
+Table of contents
+-----------------
 
-For enabling Virtualenvwrapper projects, make sure the following line is present in your shell startup file (`.bashrc`, `.profile`, etc.):
+* [Installation](#installation)
+* [Virtualenvwrapper projects integration](#virtualenvwrapper-projects-integration)
+* [Usage as a standalone](#usage-as-a-standalone)
+* [Supported virtualenv managers](#supported-virtualenv-managers)
+* [Contributions](#contributions)
+* [License](#License)
 
-    export PROJECT_HOME=/path/to/your/projects/folder/
-
-**IMPORTANT**: when adding it manually make sure to place it before the line sourcing virtualenwrapper.sh (`source /usr/local/bin/virtualenvwrapper.sh`)
 
 Installation
 ------------
@@ -29,40 +31,46 @@ and from the `subvenv` folder give
     python setup.py install
 
 
-Usage
------
+Virtualenvwrapper projects integration
+--------------------------------------
 
-Create a new virtualenv with `mkproject <project_name>`. From Sublime Text open the project `<project_name>.sublime-project` located in your `/your/project/home/<project_name>/` and you are ready to go.
+Using [Virtualenvwrapper projects](http://virtualenvwrapper.readthedocs.org/en/latest/projects.html#project-management) removes the need of manually running Subvenv. Project creation will activate Subvenv behind the scenes and a Sublime project file will be automagically created inside the project folder.
 
-What's in the generated file
-------------------
+Simply create a new virtualenv with
 
-Here is how the Subvenv sublime-project settings file looks like:
+    mkproject <project_name>
 
-    {
-        "folders": [
-            {
-                "follow_symlinks": true,
-                "path": "path/to/project/folder"
-            }
-        ],
-        "settings": {
-            "python_interpreter": "/path/to/virtualenv/bin/python",
-        }
-    }
+and a `<project_name>.sublime-project` file will be placed in your `/your/project/home/<project_name>/`. Open it with Sublime Text and you are ready to go.
 
-Contribution guidelines
------------------------
 
-Check open issues first, if nobody has reported your problem yet open a new one.
+Usage as a standalone
+----------------------
 
-You know how to fix a bug? Awesome! Fork the repository, make your changes in a new branch, and send a pull request.
+If you don't want to pass through a Virtualenwrapper project:
 
-Do you have a killer idea for improving Subenv? I'd love to hear about it! Just create a new issue, so we can discuss about it.
+    subvenv make-project [target_folder]  # default is current folder
+
+will create a `<virtualenv_name>.sublime-project` file in your target folder.
+
+
+
+Supported virtualenv managers
+-----------------------------
+
+Subvenv supports Virtualenv, Virtualenwrapper, and pyvenv.
+
+Any other virtualenv manager making use of the `VIRTUALENV` environment variable should probably work too.
+
+
+
+Contributions
+-------------
+
+Are highly appreciated :)
+
+Just follow PEP8 if you're going to submit code.
 
 License
 -------
 
 MIT license. See `LICENSE` file for more information.
-
-

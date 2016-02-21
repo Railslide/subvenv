@@ -1,0 +1,6 @@
+---
+- name: Install subvenv
+  sudo: yes
+  command: python setup.py install
+  args:
+    chdir: "{{ subvenv.project_folder }}"
