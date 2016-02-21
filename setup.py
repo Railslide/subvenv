@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from setuptools import setup, find_packages
 
 
@@ -26,7 +28,7 @@ setup(name='subvenv',
       author='Giulia Vergottini',
       author_email='hello@railslide.io',
       license='MIT',
-      packages=find_packages(),
+      packages=find_packages('subvenv', exclude=['tests']),
       install_requires=[
           'click',
       ],
