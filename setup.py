@@ -13,7 +13,7 @@ except (IOError, ImportError):
 
 
 setup(name='subvenv',
-      version='1.0.0',
+      version='1.0.1',
       description=('A tool for creating virtualenv-friendly '
                    'Sublime Text project files'),
       long_description=long_description,
