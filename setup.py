@@ -13,7 +13,7 @@ except (IOError, ImportError):
 
 
 setup(name='subvenv',
-      version='1.0.0',
+      version='1.0.1',
       description=('A tool for creating virtualenv-friendly '
                    'Sublime Text project files'),
       long_description=long_description,
@@ -33,7 +33,7 @@ setup(name='subvenv',
       author='Giulia Vergottini',
       author_email='hello@railslide.io',
       license='MIT',
-      packages=find_packages(exclude=['tests']),
+      packages=find_packages(exclude=['*tests']),
       install_requires=[
           'click',
       ],
