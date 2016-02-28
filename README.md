@@ -42,12 +42,16 @@ and a `<project_name>.sublime-project` file will be placed in your `/your/projec
 Usage as a standalone
 ----------------------
 
-If you don't want to pass through a Virtualenwrapper project:
+If you don't want to pass through a Virtualenwrapper project
 
-    $ subvenv make-project [target_folder]  # default is current folder
+    $ subvenv make_project
 
-will create a `<virtualenv_name>.sublime-project` file in your target folder.
+will create a `<virtualenv_name>.sublime-project` file in the current working directory.
 
+
+You can also specify a location different than the current folder by using the `--folder` flag
+
+    $ subvenv make_project --folder=path/to/target_folder
 
 
 Supported virtualenv managers
