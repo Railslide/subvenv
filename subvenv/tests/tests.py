@@ -1,6 +1,10 @@
 import os
 import unittest
-from unittest.mock import patch, mock_open
+
+try:
+    from unittest.mock import patch, mock_open
+except ImportError:
+    from mock import patch, mock_open
 
 from click.testing import CliRunner
 
