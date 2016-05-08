@@ -6,11 +6,6 @@ try:
 except ImportError:
     from mock import patch, mock_open
 
-try:
-    import builtins
-except ImportError:
-    import __builtin__ as builtins
-
 from click.testing import CliRunner
 
 from subvenv import core
@@ -32,7 +27,7 @@ class SubvenvTests(unittest.TestCase):
 
         """
         m = mock_open(read_data='test_name')
-        with patch('builtins.open', m, create=True) as m:
+        with patch('subvenv.core.open', m, create=True) as m:
             core.post_mkproject()
 
         m.assert_called_with('test_env/.project', 'r')
@@ -59,7 +54,7 @@ class SubvenvTests(unittest.TestCase):
 
         """
         m = mock_open()
-        with patch('builtins.open', m, create=True) as m:
+        with patch('subvenv.core.open', m, create=True) as m:
             core.create_sublime_project_file(
                 'test_folder',
                 'test_name',
