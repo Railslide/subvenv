@@ -6,6 +6,11 @@ try:
 except ImportError:
     from mock import patch, mock_open
 
+try:
+    import builtins
+except ImportError:
+    import __builtin__ as builtins
+
 from click.testing import CliRunner
 
 from subvenv import core
