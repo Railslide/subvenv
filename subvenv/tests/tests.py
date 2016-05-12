@@ -2,9 +2,9 @@ import os
 import unittest
 
 try:
-    from unittest.mock import patch, mock_open
-except ImportError:
     from mock import patch, mock_open
+except ImportError:
+    from unittest.mock import patch, mock_open
 
 from click.testing import CliRunner
 
