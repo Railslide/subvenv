@@ -28,6 +28,8 @@ setup(name='subvenv',
           'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
       ],
       url='http://github.com/Railslide/subvenv',
       author='Giulia Vergottini',
@@ -44,7 +46,7 @@ setup(name='subvenv',
               'subvenv = subvenv.core:post_mkproject',
           ],
           'console_scripts': [
-            'subvenv = subvenv.core:cli'
+              'subvenv = subvenv.core:cli'
           ],
       },
       include_package_data=True,
