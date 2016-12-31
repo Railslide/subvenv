@@ -27,6 +27,11 @@ You can install the latest stable release via pip:
 
     $ pip install subvenv
 
+If you prefer the development version instead, you can install it from source:
+
+    $ git clone https://github.com/Railslide/subvenv.git
+    $ python setup.py install
+
 
 Virtualenvwrapper projects integration
 --------------------------------------
@@ -67,7 +72,6 @@ Supported virtualenv managers
 Subvenv supports Virtualenv, Virtualenwrapper, and pyvenv.
 
 Any other virtualenv manager making use of the `VIRTUALENV` environment variable should probably work too.
-
 
 
 Contributions
