@@ -14,6 +14,7 @@ Table of contents
 * [Installation](#installation)
 * [Virtualenvwrapper projects integration](#virtualenvwrapper-projects-integration)
 * [Usage as a standalone](#usage-as-a-standalone)
+* [Supported Python versions](#supported-python-versions)
 * [Supported virtualenv managers](#supported-virtualenv-managers)
 * [Contributions](#contributions)
 * [License](#License)
@@ -52,6 +53,12 @@ will create a `<virtualenv_name>.sublime-project` file in the current working di
 You can also specify a location different than the current folder by using the `--folder` flag
 
     $ subvenv make_project --folder=path/to/target_folder
+
+
+Supported Python versions
+-------------------------
+
+Subvenv is tested under Python 2.7, 3.3, 3.4, 3.5, 3.6.
 
 
 Supported virtualenv managers
