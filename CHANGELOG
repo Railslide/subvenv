@@ -1,0 +1,18 @@
+SUBVENV CHANGELOG
+=================
+
+
+1.0.1 (2016-02-28)
+------------------
+
+* Fix README
+* Exclude test files from source package
+
+
+1.0.0 (2016-02-21)
+------------------
+
+* Support for multiple virtual environments managers
+* Command line interface
+* Dev tools
+* Installation via pip
