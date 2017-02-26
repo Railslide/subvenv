@@ -71,7 +71,7 @@ setup(
     author='Giulia Vergottini',
     author_email='hello@railslide.io',
     license='MIT',
-    packages=find_packages(exclude=['*tests']),
+    packages=find_packages(exclude=['tests']),
     install_requires=[
         'click',
     ],
