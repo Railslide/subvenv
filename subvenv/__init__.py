@@ -1,5 +1,3 @@
 # coding=utf-8
 
-from pkg_resources import get_distribution
-
-__version__ = get_distribution('subvenv').version
+__version__ = '1.0.1'
