@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import argparse
 import json
 import logging
 import os
@@ -131,5 +132,29 @@ def make_project(folder=None):
     create_sublime_project_file(folder, venv.name, venv.interpreter)
 
 
+def main():
+    description = (
+        'Subvenv is a tool for creating virtualenv-friendly Sublime Text '
+        'project files.\nIt can be used  as a standalone or as a plugin for '
+        'Virtualenwrapper. \n\nSee https://github.com/Railslide/subvenv '
+        'for more information.'
+    )
+    parser = argparse.ArgumentParser(
+        description=description,
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    parser.add_argument(
+        'make_project',
+        help="create a Sublime Text project file in the given project folder"
+    )
+    parser.add_argument(
+        "-v", "--version",
+        help="print version information",
+        action="store_true"
+    )
+    parser.parse_args()
+
+
 if __name__ == '__main__':
-    cli()
+    main()
+    # cli()
