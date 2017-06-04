@@ -133,25 +133,29 @@ def make_project(folder=None):
 
 
 def main():
-    description = (
-        'Subvenv is a tool for creating virtualenv-friendly Sublime Text '
-        'project files.\nIt can be used  as a standalone or as a plugin for '
-        'Virtualenwrapper. \n\nSee https://github.com/Railslide/subvenv '
-        'for more information.'
-    )
     parser = argparse.ArgumentParser(
-        description=description,
-        formatter_class=argparse.RawTextHelpFormatter
+        description=(
+            'Subvenv is a tool for creating virtualenv-friendly Sublime Text '
+            'project files.\nIt can be used as a standalone or as a plugin for'
+            ' Virtualenwrapper.\n\nSee https://github.com/Railslide/subvenv '
+            'for more information.'
+        ),
+        formatter_class=argparse.RawTextHelpFormatter,
+        prog='subvenv'
     )
-    parser.add_argument(
-        'make_project',
-        help="create a Sublime Text project file in the given project folder"
-    )
+
     parser.add_argument(
         "-v", "--version",
         help="print version information",
         action="store_true"
     )
+
+    subparsers = parser.add_subparsers(metavar='COMMAND')
+    parser_commands = subparsers.add_parser(
+        'make_project',
+        help='create a Sublime Text project file'
+    )
+    parser_commands.add_argument('bar', type=int, help='bar help')
     parser.parse_args()
 
 
