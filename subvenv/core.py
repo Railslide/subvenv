@@ -7,7 +7,7 @@ import logging
 import os
 import sys
 
-import click
+# import click
 
 from collections import namedtuple
 
@@ -95,7 +95,7 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
         )
 
 
-@click.group(context_settings=HELP_COMMANDS)
+# @click.group(context_settings=HELP_COMMANDS)
 def cli():
     """
     Subvenv is a tool for creating virtualenv-friendly Sublime Text
@@ -107,12 +107,12 @@ def cli():
     pass
 
 
-@cli.command()
-@click.option(
-    '--folder',
-    type=click.Path(),
-    help='Target folder for file creation.'
-)
+# @cli.command()
+# @click.option(
+#     '--folder',
+#     type=click.Path(),
+#     help='Target folder for file creation.'
+# )
 def make_project(folder=None):
     """
     Create a Sublime project file for the current virtual environment.
@@ -148,6 +148,7 @@ def main():
 
     # Commands
     subparsers = parser.add_subparsers(metavar='COMMAND')
+    subparsers.required = True
 
     commands_make_project = subparsers.add_parser(
         'make_project',
@@ -161,7 +162,8 @@ def main():
     )
     commands_make_project.add_argument(
         '--folder',
-        help='target folder for file creation'
+        help='target folder for file creation (default: current directory)',
+        type=make_project
     )
 
     # Version
