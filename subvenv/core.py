@@ -11,6 +11,8 @@ import click
 
 from collections import namedtuple
 
+from version import __version__
+
 
 log = logging.getLogger(__name__)
 
@@ -144,19 +146,32 @@ def main():
         prog='subvenv'
     )
 
-    from version import __version__
+    # Commands
+    subparsers = parser.add_subparsers(metavar='COMMAND')
+
+    commands_make_project = subparsers.add_parser(
+        'make_project',
+        help='create a Sublime Text project file',
+        description=(
+            'Create a Sublime project file for the current virtual '
+            'environment.\n\nIf no target folder is specified, the '
+            'file will be created in the current\nworking directory.'
+        ),
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    commands_make_project.add_argument(
+        '--folder',
+        help='target folder for file creation'
+    )
+
+    # Version
     parser.add_argument(
         "-v", "--version",
         help="print version information and quit",
         action="version",
         version='%(prog)s ' + __version__
     )
-    subparsers = parser.add_subparsers(metavar='COMMAND')
-    parser_commands = subparsers.add_parser(
-        'make_project',
-        help='create a Sublime Text project file'
-    )
-    parser_commands.add_argument('bar', type=int, help='bar help')
+
     parser.parse_args()
 
 
