@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 
 
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
-INIT_PATH = os.path.join("subvenv", "__init__.py")
+VERSION_PATH = os.path.join("subvenv", "version.py")
 
 
 def read(*path_parts):
@@ -36,7 +36,7 @@ def get_version():
     """ Extract version from __init__.py """
     version_match = re.search(
         r'^__version__ = [\'"]([\w_.-]+)[\'"]$',
-        read(INIT_PATH),
+        read(VERSION_PATH),
         re.M
     )
 

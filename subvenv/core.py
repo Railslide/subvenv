@@ -144,12 +144,13 @@ def main():
         prog='subvenv'
     )
 
+    from version import __version__
     parser.add_argument(
         "-v", "--version",
-        help="print version information",
-        action="store_true"
+        help="print version information and quit",
+        action="version",
+        version='%(prog)s ' + __version__
     )
-
     subparsers = parser.add_subparsers(metavar='COMMAND')
     parser_commands = subparsers.add_parser(
         'make_project',
