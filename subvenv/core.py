@@ -138,9 +138,12 @@ def main():
     parser = argparse.ArgumentParser(
         description=(
             'Subvenv is a tool for creating virtualenv-friendly Sublime Text '
-            'project files.\nIt can be used as a standalone or as a plugin for'
-            ' Virtualenwrapper.\n\nSee https://github.com/Railslide/subvenv '
-            'for more information.'
+            'project files.\n'
+
+            'It can be used as a standalone or as a plugin for'
+            ' Virtualenwrapper.\n\n'
+
+            'See https://github.com/Railslide/subvenv for more information.'
         ),
         formatter_class=argparse.RawTextHelpFormatter,
         prog='subvenv'
