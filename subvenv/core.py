@@ -11,7 +11,7 @@ import sys
 
 from collections import namedtuple
 
-from version import __version__
+from subvenv.version import __version__
 
 
 log = logging.getLogger(__name__)
