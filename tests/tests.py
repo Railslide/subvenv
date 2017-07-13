@@ -8,7 +8,6 @@ try:
 except ImportError:
     from unittest.mock import patch, mock_open
 
-from click.testing import CliRunner
 
 from subvenv import core
 
@@ -87,8 +86,7 @@ class SubvenvTests(unittest.TestCase):
         call create_sublime_project_file.
 
         """
-        runner = CliRunner()
-        runner.invoke(core.make_project, ['--folder', 'test_folder'])
+        core.make_project(folder='test_folder')
         create_sublime_mock.assert_called_with(
             'test_folder',
             'test_env',
@@ -102,12 +100,8 @@ class SubvenvTests(unittest.TestCase):
         should exit the program.
 
         """
-        runner = CliRunner()
-        result = runner.invoke(core.make_project)
-        expected_msg = 'You need to be inside a virtualenv for using subvenv.'
-
-        self.assertTrue(isinstance(result.exception, SystemExit))
-        self.assertEqual(result.exception.args[0], expected_msg)
+        with self.assertRaises(SystemExit):
+            core.make_project()
 
     @patch.object(os, 'getenv', return_value='')
     def test_get_virtualenv_without_virtualenv(self, os_mock):
