@@ -96,15 +96,15 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
 
 
 # @click.group(context_settings=HELP_COMMANDS)
-def cli():
-    """
-    Subvenv is a tool for creating virtualenv-friendly Sublime Text
-    project files.
-    It can be used  as a standalone or as a plugin for Virtualenwrapper.
+# def cli():
+#     """
+#     Subvenv is a tool for creating virtualenv-friendly Sublime Text
+#     project files.
+#     It can be used  as a standalone or as a plugin for Virtualenwrapper.
 
-    See https://github.com/Railslide/subvenv for more information.
-    """
-    pass
+#     See https://github.com/Railslide/subvenv for more information.
+#     """
+#     pass
 
 
 # @cli.command()
@@ -121,9 +121,9 @@ def make_project(folder=None):
     the current working directory.
 
     """
+    # import pdb; pdb.set_trace()
     if not folder:
         folder = os.getcwd()
-
     folder = os.path.abspath(folder)
 
     try:
@@ -134,7 +134,7 @@ def make_project(folder=None):
     create_sublime_project_file(folder, venv.name, venv.interpreter)
 
 
-def main():
+def cli(args=None):
     parser = argparse.ArgumentParser(
         description=(
             'Subvenv is a tool for creating virtualenv-friendly Sublime Text '
@@ -149,26 +149,6 @@ def main():
         prog='subvenv'
     )
 
-    # Commands
-    subparsers = parser.add_subparsers(metavar='COMMAND')
-    subparsers.required = True
-
-    commands_make_project = subparsers.add_parser(
-        'make_project',
-        help='create a Sublime Text project file',
-        description=(
-            'Create a Sublime project file for the current virtual '
-            'environment.\n\nIf no target folder is specified, the '
-            'file will be created in the current\nworking directory.'
-        ),
-        formatter_class=argparse.RawTextHelpFormatter
-    )
-    commands_make_project.add_argument(
-        '--folder',
-        help='target folder for file creation (default: current directory)',
-        type=make_project
-    )
-
     # Version
     parser.add_argument(
         "-v", "--version",
@@ -177,7 +157,43 @@ def main():
         version='%(prog)s ' + __version__
     )
 
-    parser.parse_args()
+    # Commands
+    subparsers = parser.add_subparsers(dest='command', metavar='COMMAND')
+    subparsers.required = True
+
+    commands_make_project = subparsers.add_parser(
+        'make_project',
+        help='create a Sublime Text project file',
+        description=(
+            'Create a Sublime project file for the current virtual '
+            'environment.\n\n'
+
+            'If no target folder is specified, the file will be created in the'
+            ' current\n'
+            'working directory.'
+        ),
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    commands_make_project.add_argument(
+        '--folder',
+        help='target folder for file creation (default: current directory)'
+    )
+
+    kwargs = vars(parser.parse_args(args))
+    command = kwargs.pop('command')
+    return command, kwargs
+
+
+def main():
+    command, kwargs = cli()
+
+    FUNCTION_MAP = {
+        'make_project': make_project
+    }
+    try:
+        FUNCTION_MAP[command](**kwargs)
+    except KeyError:
+        sys.exit('Invalid command')
 
 
 if __name__ == '__main__':
