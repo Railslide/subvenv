@@ -7,17 +7,12 @@ import logging
 import os
 import sys
 
-# import click
-
 from collections import namedtuple
 
 from subvenv.version import __version__
 
 
 log = logging.getLogger(__name__)
-
-
-HELP_COMMANDS = dict(help_option_names=['-h', '--help'])
 
 
 class VirtualenvError(Exception):
@@ -95,24 +90,6 @@ def create_sublime_project_file(project_folder, project_name, interpreter):
         )
 
 
-# @click.group(context_settings=HELP_COMMANDS)
-# def cli():
-#     """
-#     Subvenv is a tool for creating virtualenv-friendly Sublime Text
-#     project files.
-#     It can be used  as a standalone or as a plugin for Virtualenwrapper.
-
-#     See https://github.com/Railslide/subvenv for more information.
-#     """
-#     pass
-
-
-# @cli.command()
-# @click.option(
-#     '--folder',
-#     type=click.Path(),
-#     help='Target folder for file creation.'
-# )
 def make_project(folder=None):
     """
     Create a Sublime project file for the current virtual environment.
@@ -121,7 +98,6 @@ def make_project(folder=None):
     the current working directory.
 
     """
-    # import pdb; pdb.set_trace()
     if not folder:
         folder = os.getcwd()
     folder = os.path.abspath(folder)
@@ -198,4 +174,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # cli()
