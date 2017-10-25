@@ -131,7 +131,11 @@ class SubvenvTests(unittest.TestCase):
 
     @patch.object(core, 'cli', return_value=('make_project', {}))
     @patch.object(core, 'make_project')
-    def test_main_make_project_with_no_folder(self, make_project_mock, cli_mock):
+    def test_main_make_project_with_no_folder(
+        self,
+        make_project_mock,
+        cli_mock
+    ):
         """
         Calling main without specifying a target folder should
         result in make_project being called without any arguments
@@ -145,7 +149,11 @@ class SubvenvTests(unittest.TestCase):
         return_value=('make_project', {'folder': 'test_folder'})
     )
     @patch.object(core, 'make_project')
-    def test_main_make_project_with_specified_folder(self, make_project_mock, cli_mock):
+    def test_main_make_project_with_specified_folder(
+        self,
+        make_project_mock,
+        cli_mock
+    ):
         """
         Calling main with a target folder specified should result in
         such a folder being passed down to make_project.
