@@ -49,6 +49,17 @@ class SubvenvTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             core.post_mkproject()
 
+    @patch.object(os, 'getenv', return_value='test_env')
+    @patch.object(core, 'open', side_effect=IOError)
+    def test_postmkproject_without_project_file(self, open_mock, os_mock):
+        """
+        If post_mkproject cannot open the project file, the
+        program should exit.
+
+        """
+        with self.assertRaises(SystemExit):
+            core.post_mkproject()
+
     def test_create_sublime_project_file(self):
         """
         Calling create_sublime_project_file should write a
