@@ -82,7 +82,7 @@ setup(
             'subvenv = subvenv.core:post_mkproject',
         ],
         'console_scripts': [
-            'subvenv = subvenv.core:cli'
+            'subvenv = subvenv.core:main'
         ],
     },
     include_package_data=True,

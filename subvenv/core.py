@@ -170,7 +170,3 @@ def main():
         FUNCTION_MAP[command](**kwargs)
     except KeyError:
         sys.exit('Invalid command')
-
-
-if __name__ == '__main__':
-    main()
