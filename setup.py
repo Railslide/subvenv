@@ -72,9 +72,6 @@ setup(
     author_email='hello@railslide.io',
     license='MIT',
     packages=find_packages(exclude=['tests']),
-    install_requires=[
-        'click',
-    ],
     test_suite='subvenv.tests',
     tests_require='nose',
     entry_points={
