@@ -1,6 +1,13 @@
 SUBVENV CHANGELOG
 =================
 
+1.2.0 (2017-11-19)
+------------------
+
+* Use Argparse for argument parsing
+* Remove click dependency
+* Improve test suite
+
 1.1.0 (2017-03-12)
 ------------------
 
