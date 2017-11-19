@@ -8,7 +8,6 @@ try:
 except ImportError:
     from unittest.mock import patch, mock_open
 
-from click.testing import CliRunner
 
 from subvenv import core
 
@@ -98,8 +97,7 @@ class SubvenvTests(unittest.TestCase):
         call create_sublime_project_file.
 
         """
-        runner = CliRunner()
-        runner.invoke(core.make_project, ['--folder', 'test_folder'])
+        core.make_project(folder='test_folder')
         create_sublime_mock.assert_called_with(
             'test_folder',
             'test_env',
@@ -113,12 +111,8 @@ class SubvenvTests(unittest.TestCase):
         should exit the program.
 
         """
-        runner = CliRunner()
-        result = runner.invoke(core.make_project)
-        expected_msg = 'You need to be inside a virtualenv for using subvenv.'
-
-        self.assertTrue(isinstance(result.exception, SystemExit))
-        self.assertEqual(result.exception.args[0], expected_msg)
+        with self.assertRaises(SystemExit):
+            core.make_project()
 
     @patch.object(os, 'getenv', return_value='')
     def test_get_virtualenv_without_virtualenv(self, os_mock):
@@ -136,3 +130,56 @@ class SubvenvTests(unittest.TestCase):
         self.assertEqual(venv.path, 'test/test_env')
         self.assertEqual(venv.interpreter, 'test/test_env/bin/python')
         self.assertEqual(venv.name, 'test_env')
+
+    @patch.object(core, 'cli', return_value=('invalid_command', {}))
+    def test_main_non_existing_command(self, cli_mock):
+        """
+        Calling main with a non existing command should exit
+        the program
+        """
+        with self.assertRaises(SystemExit):
+            core.main()
+
+    @patch.object(core, 'cli', return_value=('make_project', {}))
+    @patch.object(core, 'make_project')
+    def test_main_make_project_with_no_folder(
+        self,
+        make_project_mock,
+        cli_mock
+    ):
+        """
+        Calling main without specifying a target folder should
+        result in make_project being called without any arguments
+        """
+        core.main()
+        make_project_mock.assert_called_with()
+
+    @patch.object(
+        core,
+        'cli',
+        return_value=('make_project', {'folder': 'test_folder'})
+    )
+    @patch.object(core, 'make_project')
+    def test_main_make_project_with_specified_folder(
+        self,
+        make_project_mock,
+        cli_mock
+    ):
+        """
+        Calling main with a target folder specified should result in
+        such a folder being passed down to make_project.
+        """
+        core.main()
+        make_project_mock.assert_called_with(folder='test_folder')
+
+    def test_cli_make_project_without_destination_folder(self):
+        command, kwargs = core.cli(args=['make_project'])
+        self.assertEqual(command, 'make_project')
+        self.assertEqual(kwargs, {'folder': None})
+
+    def test_cli_make_project_with_destination_folder(self):
+        command, kwargs = core.cli(
+            args=['make_project', '--folder', 'test_folder']
+        )
+        self.assertEqual(command, 'make_project')
+        self.assertEqual(kwargs, {'folder': 'test_folder'})

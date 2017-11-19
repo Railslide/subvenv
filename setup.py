@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 
 
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
-INIT_PATH = os.path.join("subvenv", "__init__.py")
+VERSION_PATH = os.path.join("subvenv", "version.py")
 
 
 def read(*path_parts):
@@ -36,7 +36,7 @@ def get_version():
     """ Extract version from __init__.py """
     version_match = re.search(
         r'^__version__ = [\'"]([\w_.-]+)[\'"]$',
-        read(INIT_PATH),
+        read(VERSION_PATH),
         re.M
     )
 
@@ -72,9 +72,6 @@ setup(
     author_email='hello@railslide.io',
     license='MIT',
     packages=find_packages(exclude=['tests']),
-    install_requires=[
-        'click',
-    ],
     test_suite='subvenv.tests',
     tests_require='nose',
     entry_points={
@@ -82,7 +79,7 @@ setup(
             'subvenv = subvenv.core:post_mkproject',
         ],
         'console_scripts': [
-            'subvenv = subvenv.core:cli'
+            'subvenv = subvenv.core:main'
         ],
     },
     include_package_data=True,
