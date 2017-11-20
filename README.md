@@ -2,7 +2,7 @@ Subvenv
 =======
 
 Subvenv makes the creation of virtualenv-friendly Sublime Text 2/3 project files as easy as
-`subvenv make_project` (or even skipping it by integrating it with Virtualenwrapper!).
+`subvenv mkproject` (or even skipping it by integrating it with Virtualenwrapper!).
 
 Create your virtualenv, run subvenv, and you're ready to code.
 
@@ -50,14 +50,14 @@ Usage as a standalone
 
 If you don't want to pass through a Virtualenwrapper project
 
-    $ subvenv make_project
+    $ subvenv mkproject
 
 will create a `<virtualenv_name>.sublime-project` file in the current working directory.
 
 
 You can also specify a location different than the current folder by using the `--folder` flag
 
-    $ subvenv make_project --folder=path/to/target_folder
+    $ subvenv mkproject --folder=path/to/target_folder
 
 
 Supported Python versions
