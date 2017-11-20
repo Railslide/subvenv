@@ -172,14 +172,14 @@ class SubvenvTests(unittest.TestCase):
         core.main()
         make_project_mock.assert_called_with(folder='test_folder')
 
-    def test_cli_make_project_without_destination_folder(self):
-        command, kwargs = core.cli(args=['make_project'])
-        self.assertEqual(command, 'make_project')
+    def test_cli_mkproject_without_destination_folder(self):
+        command, kwargs = core.cli(args=['mkproject'])
+        self.assertEqual(command, 'mkproject')
         self.assertEqual(kwargs, {'folder': None})
 
-    def test_cli_make_project_with_destination_folder(self):
+    def test_cli_mkproject_with_destination_folder(self):
         command, kwargs = core.cli(
-            args=['make_project', '--folder', 'test_folder']
+            args=['mkproject', '--folder', 'test_folder']
         )
-        self.assertEqual(command, 'make_project')
+        self.assertEqual(command, 'mkproject')
         self.assertEqual(kwargs, {'folder': 'test_folder'})

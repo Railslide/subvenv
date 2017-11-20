@@ -9,6 +9,7 @@ import sys
 
 from collections import namedtuple
 
+from subvenv.utils import deprecation_warning
 from subvenv.version import __version__
 
 
@@ -137,8 +138,8 @@ def cli(args=None):
     subparsers = parser.add_subparsers(dest='command', metavar='COMMAND')
     subparsers.required = True
 
-    commands_make_project = subparsers.add_parser(
-        'make_project',
+    commands_mkproject = subparsers.add_parser(
+        'mkproject',
         help='create a Sublime Text project file',
         description=(
             'Create a Sublime project file for the current virtual '
@@ -148,6 +149,18 @@ def cli(args=None):
             ' current\n'
             'working directory.'
         ),
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    commands_mkproject.add_argument(
+        '--folder',
+        help='target folder for file creation (default: current directory)'
+    )
+
+    # TODO: remove in version 2!
+    commands_make_project = subparsers.add_parser(
+        'make_project',
+        help='(deprecated) create a Sublime Text project file',
+        description='Deprecated in favor of mkproject',
         formatter_class=argparse.RawTextHelpFormatter
     )
     commands_make_project.add_argument(
@@ -164,8 +177,17 @@ def main():
     command, kwargs = cli()
 
     FUNCTION_MAP = {
-        'make_project': make_project
+        'mkproject': make_project,
+        'make_project': make_project,
     }
+
+    PENDING_DEPRECATION = {
+        'make_project': 'mkproject'
+    }
+
+    if PENDING_DEPRECATION.get(command):
+        deprecation_warning(command, PENDING_DEPRECATION[command])
+
     try:
         FUNCTION_MAP[command](**kwargs)
     except KeyError:
